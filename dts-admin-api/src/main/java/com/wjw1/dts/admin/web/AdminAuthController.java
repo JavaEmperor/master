@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -40,6 +44,7 @@ import com.wjw1.dts.db.service.DtsRoleService;
 @RestController
 @RequestMapping("/admin/auth")
 @Validated
+@Api(value = "登录",description = "登录",tags = "api文档")
 public class AdminAuthController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminAuthController.class);
 
@@ -52,6 +57,10 @@ public class AdminAuthController {
 	 * { username : value, password : value }
 	 */
 	@PostMapping("/login")
+	@ApiOperation(value = "登录",httpMethod = "POST")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "username", value = "用户名",paramType="query", dataType = "String"),
+			@ApiImplicitParam(name = "password", value = "密码",paramType="query", dataType = "String")})
 	public Object login(@RequestBody String body) {
 		logger.info("【请求开始】系统管理->用户登录,请求参数:body:{}", body);
 
